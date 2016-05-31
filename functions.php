@@ -5,7 +5,7 @@ function marspack_shortcode ($tabAttribute, $content = "")
     $tabAttribute = shortcode_atts([
         "custom"    => "",
         "date"      => "",
-        "mode"      => "",
+        "menu"      => "",
         ], $tabAttribute);
         
     // CREATE LOCAL VARIABLES 
@@ -16,6 +16,12 @@ function marspack_shortcode ($tabAttribute, $content = "")
         return post_custom($custom);
     }
     
+    if (!empty($menu))
+    {
+        // DEBUG
+        return date($date);
+    }
+
     if (!empty($date))
     {
         // DEBUG
