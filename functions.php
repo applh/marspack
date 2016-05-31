@@ -4,6 +4,7 @@ function marspack_shortcode ($tabAttribute, $content = "")
 {
     $tabAttribute = shortcode_atts([
         "custom"    => "",
+        "custom1"   => "",
         "date"      => "",
         "menu"      => "",
         ], $tabAttribute);
@@ -14,6 +15,15 @@ function marspack_shortcode ($tabAttribute, $content = "")
     if (!empty($custom))
     {
         return post_custom($custom);
+    }
+
+    if (!empty($custom1))
+    {
+        $value  = post_custom($custom1);
+        $value1 = intval($value) + 1;
+        $id = get_the_ID();
+        update_post_meta($id, $custom1, $value1, $value);
+        return "$value1";
     }
     
     if (!empty($menu))
