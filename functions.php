@@ -19,7 +19,9 @@ function marspack_shortcode ($tabAttribute, $content = "")
     if (!empty($menu))
     {
         // DEBUG
-        return date($date);
+        $menu=trim($menu);
+        $menuHtml = wp_nav_menu(array('menu' => $menu, 'echo' => false));    
+        return $menuHtml;
     }
 
     if (!empty($date))
