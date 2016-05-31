@@ -12,6 +12,6 @@ class MarsPack
     
     function installShortcode ()
     {
-        add_shortcode('pack', 'shortcode_pack');
+        add_shortcode('pack', 'marspack_shortcode');
     }
 }
