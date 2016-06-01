@@ -10,12 +10,12 @@ CODEHTML;
 
 
 // FORM MANAGEMENT
-$idForm = getInput("idform");
+$idForm = getInput("idForm");
 if ($idForm == "instructions")
 {
     $instructions = getInput("instructions");
     
-    setVar("instructionsFeedback", $instructions);
+    setVar("instructionsFeedback", "under construction...");
 }
 ?>
 <section>
@@ -25,7 +25,7 @@ if ($idForm == "instructions")
 <section>
     <h3><?php _e('Enter your instructions', 'marspack'); ?></h3>
     <form>
-        <textarea name="instructions" cols="80" rows="16" required></textarea>
+        <textarea name="instructions" cols="80" rows="16" required><?php echo $instructions; ?></textarea>
         <input type="hidden" name="page" value="marspack">
         <input type="hidden" name="idForm" value="instructions">
         <div>

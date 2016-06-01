@@ -88,11 +88,18 @@ function getInput ($name, $default="")
     return $result;
 }
 
-function echoVar ($varName)
+function echoVar ($varName, $translate=false)
 {
     if (isset($GLOBALS["$varName"]))
     {
-        _e($GLOBALS["$varName"], 'marspack');
+        if ($translate)
+        {
+            _e($GLOBALS["$varName"], 'marspack');
+        }
+        else
+        {
+            echo $GLOBALS["$varName"];
+        }
     }
 }
 
