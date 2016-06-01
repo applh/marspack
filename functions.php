@@ -67,3 +67,36 @@ function marspack_admin_page ()
     // BUILD THE PLUGIN ADMIN PAGE
     require_once(__DIR__."/marspack-admin-page.php");
 }
+
+
+// FORM UTILS
+function getInput ($name, $default="")
+{
+    $result = $default;
+    
+    if (isset($_REQUEST["$name"]))
+    {
+        $result = $_REQUEST["$name"];
+    }
+    elseif (isset($_COOKIE["$name"]))
+    {
+        $result = $_COOKIE["$name"];
+    }
+    
+    $result = strip_tags($result);
+    $result = trim($result);
+    return $result;
+}
+
+function echoVar ($varName)
+{
+    if (isset($GLOBALS["$varName"]))
+    {
+        _e($GLOBALS["$varName"], 'marspack');
+    }
+}
+
+function setVar ($varName, $varVal)
+{
+    $GLOBALS["$varName"] = $varVal;
+}

@@ -8,6 +8,15 @@ Welcome on <strong>MarsPack</strong>!
 This plugin is under development. Thanks for your patience.
 CODEHTML;
 
+
+// FORM MANAGEMENT
+$idForm = getInput("idform");
+if ($idForm == "instructions")
+{
+    $instructions = getInput("instructions");
+    
+    setVar("instructionsFeedback", $instructions);
+}
 ?>
 <section>
     <h3><?php _e('Mars Pack Admin', 'marspack'); ?></h3>
@@ -18,11 +27,12 @@ CODEHTML;
     <form>
         <textarea name="instructions" cols="80" rows="16" required></textarea>
         <input type="hidden" name="page" value="marspack">
+        <input type="hidden" name="idForm" value="instructions">
         <div>
             <button type="submit">ACTIVATE</button>
         </div>
-        <div>
-            
+        <div class="feedback">
+            <?php echoVar("instructionsFeedback"); ?>
         </div>
     </form>
 </section>
