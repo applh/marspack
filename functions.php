@@ -40,3 +40,9 @@ function marspack_shortcode ($tabAttribute, $content = "")
         return date($date);
     }
 }
+
+
+// ADMIN MENU
+function marspack_menu () {
+    add_plugins_page('MarsPack', 'MarsPack', 'manage_options', 'marspack');
+}        
