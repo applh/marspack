@@ -44,5 +44,15 @@ function marspack_shortcode ($tabAttribute, $content = "")
 
 // ADMIN MENU
 function marspack_menu () {
-    add_plugins_page('MarsPack', 'MarsPack', 'manage_options', 'marspack');
-}        
+    add_plugins_page(
+        __('MarsPack Admin', 'marspack'), 
+        __('MarsPack', 'marspack'), 
+        'manage_options', 
+        'marspack', 
+        'marspack_admin_page');
+}   
+
+function marspack_admin_page ()
+{
+    // BUILD THE PLUGIN ADMIN PAGE
+}
