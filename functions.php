@@ -43,7 +43,7 @@ function marspack_shortcode ($tabAttribute, $content = "")
 
 
 // ADMIN MENU
-function marspack_menu () {
+function marspack_admin_menu () {
     add_plugins_page(
         __('MarsPack Admin',    'marspack'), 
         __('MarsPack',          'marspack'), 
@@ -54,6 +54,10 @@ function marspack_menu () {
 
 function marspack_admin_init ()
 {
+}
+
+function marspack_plugins_loaded ()
+{
     // LOAD THE TRANSLATION FILE
     load_plugin_textdomain('marspack', false, basename( __DIR__ ) . '/languages' );
 }
@@ -61,4 +65,5 @@ function marspack_admin_init ()
 function marspack_admin_page ()
 {
     // BUILD THE PLUGIN ADMIN PAGE
+    require_once(__DIR__."/marspack-admin-page.php");
 }
