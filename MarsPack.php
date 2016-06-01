@@ -7,7 +7,6 @@ class MarsPack
     // METHODS
     function __construct ()
     {
-        load_plugin_textdomain('marspack', false, basename( dirname( __FILE__ ) ) . '/languages' );
         
         $this->installShortcode();
         $this->installAdmin();
@@ -20,6 +19,7 @@ class MarsPack
     
     function installAdmin ()
     {
+        add_action('admin_init', 'marspack_admin_init');
         add_action('admin_menu', 'marspack_menu');
 
     }

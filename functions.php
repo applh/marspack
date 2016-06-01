@@ -52,6 +52,12 @@ function marspack_menu () {
         'marspack_admin_page');
 }   
 
+function marspack_admin_init ()
+{
+    // LOAD THE TRANSLATION FILE
+    load_plugin_textdomain('marspack', false, basename( __DIR__ ) . '/languages' );
+}
+
 function marspack_admin_page ()
 {
     // BUILD THE PLUGIN ADMIN PAGE
