@@ -8,6 +8,7 @@ Welcome on <strong>MarsPack</strong>!
 This plugin is under development. Thanks for your patience.
 CODEHTML;
 
+$marspackOption = get_option("marspack", "");
 
 // FORM MANAGEMENT
 $idForm = getInput("idForm");
