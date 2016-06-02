@@ -14,9 +14,12 @@ $marspackOption = get_option("marspack", "");
 $idForm = getInput("idForm");
 if ($idForm == "instructions")
 {
-    $instructions = getInput("instructions");
+    $marspackOption = getInput("instructions");
     
-    setVar("instructionsFeedback", "under construction...");
+    // SAVE THE CONTENT
+    update_option("marspack", $marspackOption);
+    
+    setVar("instructionsFeedback    ", "under construction...");
 }
 ?>
 <section>
@@ -27,7 +30,7 @@ if ($idForm == "instructions")
     <h3><?php _e('Enter your instructions', 'marspack'); ?></h3>
     <div class="panel">
 <form>
-    <textarea name="instructions" cols="80" rows="16" required><?php echo $instructions; ?></textarea>
+    <textarea name="instructions" cols="80" rows="16" required><?php echo $marspackOption; ?></textarea>
     <input type="hidden" name="page" value="marspack">
     <input type="hidden" name="idForm" value="instructions">
     <div>
