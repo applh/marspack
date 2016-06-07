@@ -41,12 +41,34 @@ if ($idForm == "instructions")
     </div>
 </form>
     </div>
+    <script type="text/javascript">
+    jQuery(function(){
+        jQuery(".instructions h3").on("click", function(){
+           jQuery(".instructions .panel").slideToggle(); 
+        });
+    });    
+    </script>
 </section>
 
-<script type="text/javascript">
-jQuery(function(){
-    jQuery(".instructions h3").on("click", function(){
-       jQuery(".instructions .panel").slideToggle(); 
-    });
-});    
-</script>
+
+<section class="database">
+    <h3><?php _e('Database', 'marspack'); ?></h3>
+    <div>
+        <button class="actStart">START</button>
+    </div>
+    <div class="marsScreen" style="z-index:999999;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.9);">
+        <button class="actClose">CLOSE</button>
+    </div>
+    <script type="text/javascript">
+    jQuery(function(){
+        jQuery(".marsScreen").fadeOut();
+        jQuery(".database .actStart").on("click", function(){
+            jQuery(".marsScreen").fadeIn();
+        });
+        jQuery(".database .actClose").on("click", function(){
+            jQuery(".marsScreen").fadeOut();
+        });
+    });    
+    </script>
+
+</section>
