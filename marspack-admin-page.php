@@ -75,8 +75,25 @@ foreach ($tabDbTable as $table)
     echo "<h4>$table</h4>";
     // http://dev.mysql.com/doc/refman/5.7/en/show-columns.html
     $tabDesc = $wpdb->get_results( "SHOW FULL COLUMNS FROM `$table`");
-    print_r($tabDesc);
+    //print_r($tabDesc);
+    echo "<table><tbody>";
+    foreach($tabDesc as $objField)
+    {
+        $colName     = $objField->Field;
+        $colType     = $objField->Type;
+        $colComment  = $objField->Comment;
+        echo
+<<<CODEHTML
+<tr>
+    <td>$colName</td>
+    <td>$colType</td>
+    <td>$colComment</td>
+</tr>
+CODEHTML;
+    }
+    echo "</tbody></table>";
 }
+
 ?>
 </pre>            
         </div>
