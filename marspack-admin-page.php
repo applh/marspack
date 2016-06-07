@@ -58,6 +58,16 @@ if ($idForm == "instructions")
     </div>
     <div class="marsScreen" style="z-index:999999;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.9);">
         <button class="actClose">CLOSE</button>
+        <div>
+<pre>
+    
+<?php
+global $wpdb;
+$results = $wpdb->get_results( 'SHOW TABLES', ARRAY_N);
+print_r($results);
+?>
+</pre>            
+        </div>
     </div>
     <script type="text/javascript">
     jQuery(function(){
