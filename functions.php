@@ -28,26 +28,27 @@ function marspack_shortcode ($tabAttribute, $content = "")
         return "$value1";
     }
 
-    if (!empty($button))
+    if (!empty($button) && !empty($action))
     {
-        $value  = post_custom($button);
-        // UPDATE IF BUTTON PRESSED
+        $value  = post_custom($action);
+        // UPDATE +1 ONLY IF BUTTON PRESSED
         if ($action == getInput("action"))
         {
             $value1 = intval($value) + 1;
             $id = get_the_ID();
-            update_post_meta($id, $custom1, $value1, $value);
+            update_post_meta($id, $action, $value1, $value);
         }
         else
         {
             $value1 = intval($value);
         }
         
+        // WARNING: POSTS MUST HAVE PRETTY PERMALINKS
         $uri = $_SERVER["REQUEST_URI"];
         
         return 
 <<<CODEHTML
-<form action="$uri">
+<form action="$uri" method="POST">
     <input type="hidden" name="action" value="$action">
     <button>$value1 $button</button>
 </form>
