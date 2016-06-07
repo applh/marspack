@@ -50,7 +50,7 @@ function marspack_shortcode ($tabAttribute, $content = "")
 <<<CODEHTML
 <form action="$uri" method="POST">
     <input type="hidden" name="button" value="$button">
-    <button>$value1 $content</button>
+    <button><span class="counter">$value1</span><span class="$button"> $content</span></button>
 </form>
 CODEHTML;
     }
