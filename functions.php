@@ -74,7 +74,7 @@ CODEHTML;
 // ADMIN MENU
 function marspack_admin_head ()
 {
-    echo '<style type="text/css>';
+    echo '<style type="text/css">';
     require_once(__DIR__.'/admin.css');
     echo '</style>';
 }

@@ -56,7 +56,7 @@ if ($idForm == "instructions")
     <div>
         <button class="actStart">START</button>
     </div>
-    <div class="marsScreen" style="z-index:999999;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.9);overflow:scroll;color:#ffffff;padding:1em;">
+    <div class="marsScreen">
         <button class="actClose">CLOSE</button>
         <div>
 <pre>
@@ -72,11 +72,11 @@ foreach($tabTable as $tabTable2)
 
 foreach ($tabDbTable as $table) 
 {
-    echo "<h4>$table</h4>";
+    echo '<h4 class="actTable" data-table="' . $table . '">' . $table . '</h4>';
     // http://dev.mysql.com/doc/refman/5.7/en/show-columns.html
     $tabDesc = $wpdb->get_results( "SHOW FULL COLUMNS FROM `$table`");
     //print_r($tabDesc);
-    echo "<table><tbody>";
+    echo '<div class="box ' . $table. '"><table><tbody>';
     foreach($tabDesc as $objField)
     {
         $colName     = $objField->Field;
@@ -91,7 +91,7 @@ foreach ($tabDbTable as $table)
 </tr>
 CODEHTML;
     }
-    echo "</tbody></table>";
+    echo "</tbody></table></div>";
 }
 
 ?>
@@ -106,6 +106,10 @@ CODEHTML;
         });
         jQuery(".database .actClose").on("click", function(){
             jQuery(".marsScreen").fadeOut();
+        });
+        jQuery(".database .actTable").on("click", function(){
+            var table = jQuery(this).attr("data-table");
+            jQuery("div.box."+table).slideToggle();
         });
     });    
     </script>
