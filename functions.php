@@ -7,6 +7,7 @@ function marspack_shortcode ($tabAttribute, $content = "")
         "custom1"   => "",
         "date"      => "",
         "menu"      => "",
+        "button"    => "",
         ], $tabAttribute);
         
     // CREATE LOCAL VARIABLES 
@@ -18,6 +19,15 @@ function marspack_shortcode ($tabAttribute, $content = "")
     }
 
     if (!empty($custom1))
+    {
+        $value  = post_custom($custom1);
+        $value1 = intval($value) + 1;
+        $id = get_the_ID();
+        update_post_meta($id, $custom1, $value1, $value);
+        return "$value1";
+    }
+
+    if (!empty($button))
     {
         $value  = post_custom($custom1);
         $value1 = intval($value) + 1;
