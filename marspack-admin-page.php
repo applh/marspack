@@ -42,11 +42,12 @@ if ($idForm == "instructions")
 </form>
     </div>
     <script type="text/javascript">
-    jQuery(function(){
-        jQuery(".instructions h3").on("click", function(){
-           jQuery(".instructions .panel").slideToggle(); 
-        });
-    });    
+/* global jQuery */
+jQuery(function(){
+    jQuery(".instructions h3").on("click", function(){
+       jQuery(".instructions .panel").slideToggle(); 
+    });
+});    
     </script>
 </section>
 
@@ -54,10 +55,10 @@ if ($idForm == "instructions")
 <section class="database">
     <h3><?php _e('Database', 'marspack'); ?></h3>
     <div>
-        <button class="actStart">START</button>
+        <button class="actStart"><?php _e('show tables', 'marspack'); ?></button>
     </div>
     <div class="marsScreen">
-        <button class="actClose">CLOSE</button>
+        <button class="actClose"><?php _e('close', 'marspack'); ?></button>
         <div>
 <pre>
     
@@ -99,19 +100,23 @@ CODEHTML;
         </div>
     </div>
     <script type="text/javascript">
-    jQuery(function(){
+/* global jQuery */
+jQuery(function(){
+    jQuery(".marsScreen").fadeOut();
+    jQuery("div.box").hide();
+    
+    jQuery(".database .actStart").on("click", function(){
+        jQuery(".marsScreen").fadeIn();
+    });
+    jQuery(".database .actClose").on("click", function(){
         jQuery(".marsScreen").fadeOut();
-        jQuery(".database .actStart").on("click", function(){
-            jQuery(".marsScreen").fadeIn();
-        });
-        jQuery(".database .actClose").on("click", function(){
-            jQuery(".marsScreen").fadeOut();
-        });
-        jQuery(".database .actTable").on("click", function(){
-            var table = jQuery(this).attr("data-table");
-            jQuery("div.box."+table).slideToggle();
-        });
-    });    
+    });
+    jQuery(".database .actTable").on("click", function(){
+        var table = jQuery(this).attr("data-table");
+        jQuery("div.box."+table).slideToggle();
+    });
+});    
+
     </script>
 
 </section>
