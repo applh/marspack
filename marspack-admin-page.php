@@ -56,15 +56,27 @@ if ($idForm == "instructions")
     <div>
         <button class="actStart">START</button>
     </div>
-    <div class="marsScreen" style="z-index:999999;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.9);">
+    <div class="marsScreen" style="z-index:999999;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.9);overflow:scroll;color:#ffffff;padding:1em;">
         <button class="actClose">CLOSE</button>
         <div>
 <pre>
     
 <?php
 global $wpdb;
-$results = $wpdb->get_results( 'SHOW TABLES', ARRAY_N);
-print_r($results);
+// GET THE LIST OF DB TABLES
+$tabTable = $wpdb->get_results( 'SHOW TABLES', ARRAY_N);
+foreach($tabTable as $tabTable2)
+{
+    $tabDbTable[] = $tabTable2[0];
+}
+
+foreach ($tabDbTable as $table) 
+{
+    echo "<h4>$table</h4>";
+    // http://dev.mysql.com/doc/refman/5.7/en/show-columns.html
+    $tabDesc = $wpdb->get_results( "SHOW FULL COLUMNS FROM `$table`");
+    print_r($tabDesc);
+}
 ?>
 </pre>            
         </div>
