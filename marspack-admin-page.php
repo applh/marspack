@@ -57,45 +57,14 @@ jQuery(function(){
     <div>
         <button class="actStart"><?php _e('show tables', 'marspack'); ?></button>
     </div>
+    <div>
+        <button class="actCreate"><?php _e('create table', 'marspack'); ?></button>
+    </div>
     <div class="marsScreen">
         <button class="actClose"><?php _e('close', 'marspack'); ?></button>
-        <div>
+        <div class="contentStart">
 <pre>
     
-<?php
-global $wpdb;
-// GET THE LIST OF DB TABLES
-$tabTable = $wpdb->get_results( 'SHOW TABLES', ARRAY_N);
-foreach($tabTable as $tabTable2)
-{
-    $tabDbTable[] = $tabTable2[0];
-}
-
-foreach ($tabDbTable as $table) 
-{
-    echo '<h4 class="actTable" data-table="' . $table . '">' . $table . '</h4>';
-    // http://dev.mysql.com/doc/refman/5.7/en/show-columns.html
-    $tabDesc = $wpdb->get_results( "SHOW FULL COLUMNS FROM `$table`");
-    //print_r($tabDesc);
-    echo '<div class="box ' . $table. '"><table><tbody>';
-    foreach($tabDesc as $objField)
-    {
-        $colName     = $objField->Field;
-        $colType     = $objField->Type;
-        $colComment  = $objField->Comment;
-        echo
-<<<CODEHTML
-<tr>
-    <td>$colName</td>
-    <td>$colType</td>
-    <td>$colComment</td>
-</tr>
-CODEHTML;
-    }
-    echo "</tbody></table></div>";
-}
-
-?>
 </pre>            
         </div>
     </div>
@@ -106,6 +75,9 @@ jQuery(function(){
     jQuery("div.box").hide();
     
     jQuery(".database .actStart").on("click", function(){
+        jQuery(".marsScreen").fadeIn();
+    });
+    jQuery(".database .actCreate").on("click", function(){
         jQuery(".marsScreen").fadeIn();
     });
     jQuery(".database .actClose").on("click", function(){
