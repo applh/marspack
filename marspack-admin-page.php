@@ -62,9 +62,14 @@ jQuery(function(){
     </div>
     <div class="marsScreen">
         <button class="actClose"><?php _e('close', 'marspack'); ?></button>
-        <div class="contentStart">
+        <div class="contentStart contentBox">
 <pre>
-    
+<?php require_once(__DIR__."/marspack-admin-panel-start.php"); ?>    
+</pre>            
+        </div>
+        <div class="contentCreate contentBox">
+<pre>
+<?php require_once(__DIR__."/marspack-admin-panel-create.php"); ?>    
 </pre>            
         </div>
     </div>
@@ -75,9 +80,15 @@ jQuery(function(){
     jQuery("div.box").hide();
     
     jQuery(".database .actStart").on("click", function(){
+        jQuery(".marsScreen .contentBox").hide();
+        jQuery(".marsScreen .contentStart").show();
+
         jQuery(".marsScreen").fadeIn();
     });
     jQuery(".database .actCreate").on("click", function(){
+        jQuery(".marsScreen .contentBox").hide();
+        jQuery(".marsScreen .contentCreate").show();
+
         jQuery(".marsScreen").fadeIn();
     });
     jQuery(".database .actClose").on("click", function(){
