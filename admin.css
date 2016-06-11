@@ -11,6 +11,10 @@
     padding:1em;    
 }
 
+.marsScreen h3 {
+    color:#cccccc;
+}
+
 .marsScreen td {
     border:1px #aaaaaa solid;
     padding:8px;
