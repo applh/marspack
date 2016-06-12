@@ -57,16 +57,11 @@ CODESQL;
             // TODO: IMPROVE
             $comment = $type;
             
-            // ALTER TABLE  `hello2` ADD  `email` TEXT NOT NULL ;
-            $requestSQL = 
+            if ($action == "modify")
+            {
+                // ALTER TABLE  `hello2` ADD  `email` TEXT NOT NULL ;
+                $requestSQL = 
 <<<CODESQL
-
-ALTER TABLE `$table` 
-ADD COLUMN  `$name` $colType 
-NOT NULL
-$afterCol
-COMMENT '$comment'
-;
 
 ALTER TABLE `$table` 
 MODIFY  `$name` $colType 
@@ -76,6 +71,24 @@ COMMENT '$comment'
 ;
 
 CODESQL;
+                
+            }
+            else
+            {
+                // ALTER TABLE  `hello2` ADD  `email` TEXT NOT NULL ;
+                $requestSQL = 
+<<<CODESQL
+
+ALTER TABLE `$table` 
+ADD COLUMN `$name` $colType 
+NOT NULL
+$afterCol
+COMMENT '$comment'
+;
+
+CODESQL;
+                
+            }
 
             echo($requestSQL);
         }
