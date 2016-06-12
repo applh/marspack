@@ -4,28 +4,34 @@ global $wpdb;
 
 if (!is_object($wpdb)) exit;
 
-$requestDB = get_option("marspackDB", "");
+$requestDb          = "";
+$createDbFeedback   = "";
+$idForm             = getInput("idForm");
 
-$idForm = getInput("idForm");
-if ($idForm == "createDB")
+if ($idForm == "createDb")
 {
-   $requestDB = getInput("requestDB");
-
+   $requestDb = getInput("requestDb");
+   $requestDb = stripslashes($requestDb);
+   
     // SAVE THE CONTENT
-    update_option("marspackDB", $requestDB);
+    update_option("marspackDb", $requestDb);
 
+}
+else
+{
+    $requestDb          = get_option("marspackDb", "");
 }
 ?>
 <h3>CREATE A NEW TABLE</h3>
 <div>
-    <form>
+    <form method="POST">
         <br>
-        <textarea name="requestDB" rows="10" cols="80"><?php echo $requestDB; ?></textarea>
+        <textarea name="requestDb" rows="10" cols="80"><?php echo $requestDb; ?></textarea>
         <br>
         <button>CREATE NEW TABLE</button>
-        <input type="hidden" name="idForm" value="createDB">
+        <input type="hidden" name="idForm" value="createDb">
         <div class="feedback">
-            <?php echo $createDBfeedback?>
+<?php echo $createDbFeedback; ?>
         </div>
     </form>
 </div>
