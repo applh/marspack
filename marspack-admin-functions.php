@@ -89,8 +89,6 @@ $afterCol
 CODESQL;
                 
             }
-
-            echo($requestSQL);
         }
         
         // EXECUTE THE REQUEST SQL
