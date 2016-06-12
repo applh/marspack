@@ -178,6 +178,7 @@ CODESQL;
             }
 
             // REMOVE EXTRA ,
+            $listColVal = trim($listColVal);
             $listColVal = trim($listColVal, ",");
             
             $requestSQL = 

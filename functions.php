@@ -153,7 +153,7 @@ function setVar ($varName, $varVal)
 }
 
 // READ THE DB TABLE
-function marspack_table_read ($table)
+function marspack_table_read ($table, $idCol="id")
 {
     $requestSQL = 
 <<<CODESQL
@@ -164,14 +164,21 @@ CODESQL;
     
     global $wpdb;
     $tabResult = $wpdb->get_results($requestSQL, ARRAY_A);
-    foreach($tabResult as $tabLigne)
+    foreach($tabResult as $tabLine)
     {
-        echo '<ul class="' . $table . ' ">';
-        foreach($tabLigne as $col => $val)
+        // id
+        $lineClass = "$table";
+        if (isset($tabLine["$idCol"]))
+        {
+            $idLine = $tabLine["$idCol"];
+            $lineClass = "$table $table-$idLine";
+        }
+        echo '<ul class="' . $lineClass . '">';
+        foreach($tabLine as $col => $val)
         {
             echo 
 <<<CODEHTML
-<li class="$col">$val</li>"
+<li class="$col">$val</li>
 CODEHTML;
 
         }
