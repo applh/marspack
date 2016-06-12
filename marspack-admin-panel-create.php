@@ -25,8 +25,6 @@ if ($idForm == "createDb")
         // https://developer.wordpress.org/reference/functions/do_shortcode/
         do_shortcode($requestDb);
         
-        $createDbFeedback   = $requestDb;
-
     }
     else
     {
