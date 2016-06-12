@@ -22,6 +22,7 @@ if ($idForm == "createDb")
             
         // https://developer.wordpress.org/reference/functions/add_shortcode/    
         add_shortcode("table", "marspack_shortcode_table");
+        add_shortcode("drop",  "marspack_shortcode_drop");
         // https://developer.wordpress.org/reference/functions/do_shortcode/
         do_shortcode($requestDb);
         

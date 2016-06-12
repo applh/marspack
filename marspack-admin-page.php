@@ -62,11 +62,11 @@ jQuery(function(){
     </div>
     <div class="marsScreen">
         <button class="actClose"><?php _e('close', 'marspack'); ?></button>
-        <div class="contentStart contentBox">
-<?php require_once(__DIR__."/marspack-admin-panel-start.php"); ?>    
-        </div>
         <div class="contentCreate contentBox">
 <?php require_once(__DIR__."/marspack-admin-panel-create.php"); ?>    
+        </div>
+        <div class="contentStart contentBox">
+<?php require_once(__DIR__."/marspack-admin-panel-start.php"); ?>    
         </div>
     </div>
     <script type="text/javascript">
