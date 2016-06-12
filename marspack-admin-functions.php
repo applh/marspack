@@ -2,14 +2,47 @@
     
 if (!function_exists('do_action')) exit;
 
+function marspack_shortcode_col ($tabAttribute, $content = "")
+{
+    $tabAttribute = shortcode_atts([
+        "name"    => "",
+        "type"    => "text",
+        ], $tabAttribute);
+        
+    extract($tabAttribute);
+    
+    if ($name != "")
+    {
+        switch ($type)
+        {
+            case "int":
+                $colType = "INT";
+                break;
+            case "date":
+                $colType = "DATETIME";
+                break;
+            default:
+                $colType = "TEXT";
+                break;
+        }
+        // ALTER TABLE  `hello2` ADD  `email` TEXT NOT NULL ;
+        $requestSQL = 
+<<<CODESQL
+
+ALTER TABLE  `hello2` ADD  `$name` $colType NOT NULL ;
+
+CODESQL;
+        
+    }
+}
+
 function marspack_shortcode_table ($tabAttribute, $content = "")
 {
-    print_r($tabAttribute);
-    
     $tabAttribute = shortcode_atts([
         "name"    => "",
         ], $tabAttribute);
-    extract($tabAttribute);    
+    extract($tabAttribute); 
+    
     if ($name != "")
     {
         $requestSQL = 
@@ -32,21 +65,23 @@ CODESQL;
         global $wpdb;
         $wpdb->query($requestSQL);
         
-        echo $requestSQL;
+        if ($content != "")
+        {
+            // PROCESS THE COLUMNS
+            add_shortcode("col", "marspack_shortcode_col");
+            do_shortcode($content);
+        }
         
         setVar("createDbFeedback", $requestSQL);
     }
     else
     {
         setVar("createDbFeedback", "missing name");
-
     }
 }
 
 function marspack_shortcode_drop ($tabAttribute, $content = "")
 {
-    print_r($tabAttribute);
-    
     $tabAttribute = shortcode_atts([
         "name"    => "",
         ], $tabAttribute);
@@ -64,8 +99,6 @@ CODESQL;
         // https://codex.wordpress.org/Class_Reference/wpdb
         global $wpdb;
         $wpdb->query($requestSQL);
-        
-        echo $requestSQL;
         
         setVar("createDbFeedback", $requestSQL);
     }
