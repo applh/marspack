@@ -53,7 +53,7 @@ jQuery(function(){
 
 
 <section class="database">
-    <h3><?php _e('Database', 'marspack'); ?></h3>
+    <h3><?php _e('Database Manager', 'marspack'); ?></h3>
     <div>
         <button class="actStart"><?php _e('Show DB Tables', 'marspack'); ?></button>
     </div>

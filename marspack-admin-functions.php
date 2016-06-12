@@ -52,7 +52,7 @@ CODESQL;
             $afterCol = " ";
             if ($after != "")
             {
-                $afterCol = " AFTER `$after` ";
+                $afterCol = "AFTER `$after` ";
             }
             // TODO: IMPROVE
             $comment = $type;
@@ -66,8 +66,8 @@ CODESQL;
 ALTER TABLE `$table` 
 MODIFY  `$name` $colType 
 NOT NULL
-$afterCol
 COMMENT '$comment'
+$afterCol
 ;
 
 CODESQL;
@@ -82,8 +82,8 @@ CODESQL;
 ALTER TABLE `$table` 
 ADD COLUMN `$name` $colType 
 NOT NULL
-$afterCol
 COMMENT '$comment'
+$afterCol
 ;
 
 CODESQL;
