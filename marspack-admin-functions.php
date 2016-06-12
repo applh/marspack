@@ -49,10 +49,10 @@ CODESQL;
                     break;
             }
             
-            $afterCol = "";
+            $afterCol = " ";
             if ($after != "")
             {
-                $afterCol = "AFTER `$after`";
+                $afterCol = " AFTER `$after` ";
             }
             // TODO: IMPROVE
             $comment = $type;
@@ -60,6 +60,13 @@ CODESQL;
             // ALTER TABLE  `hello2` ADD  `email` TEXT NOT NULL ;
             $requestSQL = 
 <<<CODESQL
+
+ALTER TABLE `$table` 
+ADD COLUMN  `$name` $colType 
+NOT NULL
+$afterCol
+COMMENT '$comment'
+;
 
 ALTER TABLE `$table` 
 MODIFY  `$name` $colType 
@@ -70,7 +77,7 @@ COMMENT '$comment'
 
 CODESQL;
 
-            
+            echo($requestSQL);
         }
         
         // EXECUTE THE REQUEST SQL
