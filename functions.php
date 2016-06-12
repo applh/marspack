@@ -162,6 +162,18 @@ SELECT * FROM `$table`
 CODESQL;
     
     global $wpdb;
-    $tabResult = $wpdb->get_results($requestSQL);
-    
+    $tabResult = $wpdb->get_results($requestSQL, ARRAY_A);
+    foreach($tabResult as $tabLigne)
+    {
+        echo '<ul class="' . $table . ' ">';
+        foreach($tabLigne as $col => $val)
+        {
+            echo 
+<<<CODEHTML
+<li class="$col">$val</li>"
+CODEHTML;
+
+        }
+        echo "</ul>";
+    }
 }
