@@ -15,6 +15,8 @@ if ($idForm == "createDb")
    
     // SAVE THE CONTENT
     update_option("marspackDb", $requestDb);
+        
+    add_shortcode('table', 'marspack_shortcode_table');
 
 }
 else
@@ -28,7 +30,7 @@ else
         <br>
         <textarea name="requestDb" rows="10" cols="80"><?php echo $requestDb; ?></textarea>
         <br>
-        <button>CREATE NEW TABLE</button>
+        <button><?php _e('Save and Create', 'marspack'); ?></button>
         <input type="hidden" name="idForm" value="createDb">
         <div class="feedback">
 <?php echo $createDbFeedback; ?>

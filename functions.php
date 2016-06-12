@@ -101,6 +101,7 @@ function marspack_plugins_loaded ()
 function marspack_admin_page ()
 {
     // BUILD THE PLUGIN ADMIN PAGE
+    require_once(__DIR__."/marspack-admin-functions.php");
     require_once(__DIR__."/marspack-admin-page.php");
 }
 

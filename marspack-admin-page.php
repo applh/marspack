@@ -34,7 +34,7 @@ if ($idForm == "instructions")
     <input type="hidden" name="page" value="marspack">
     <input type="hidden" name="idForm" value="instructions">
     <div>
-        <button type="submit">ACTIVATE</button>
+        <button type="submit"><?php _e('Save', 'marspack'); ?></button>
     </div>
     <div class="feedback">
         <?php echoVar("instructionsFeedback"); ?>
@@ -55,10 +55,10 @@ jQuery(function(){
 <section class="database">
     <h3><?php _e('Database', 'marspack'); ?></h3>
     <div>
-        <button class="actStart"><?php _e('show tables', 'marspack'); ?></button>
+        <button class="actStart"><?php _e('Show DB Tables', 'marspack'); ?></button>
     </div>
     <div>
-        <button class="actCreate"><?php _e('create table', 'marspack'); ?></button>
+        <button class="actCreate"><?php _e('Create DB Tables', 'marspack'); ?></button>
     </div>
     <div class="marsScreen">
         <button class="actClose"><?php _e('close', 'marspack'); ?></button>
