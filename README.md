@@ -1,8 +1,14 @@
-# marspack
+# MarsPack
 
 Marseille WordPress Meetup Plugin Pack
 
-# USAGE
+# Usage (Post Content)
+
+```
+    [pack table="hello2"]
+```
+
+# Usage (Admin) 
 
 ```
 
