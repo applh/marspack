@@ -14,9 +14,13 @@ if ($idForm == "createDb")
    $requestDb = stripslashes($requestDb);
    
     // SAVE THE CONTENT
+    // https://developer.wordpress.org/reference/functions/update_option/
     update_option("marspackDb", $requestDb);
         
-    add_shortcode('table', 'marspack_shortcode_table');
+    // https://developer.wordpress.org/reference/functions/add_shortcode/    
+    add_shortcode("table", "marspack_shortcode_table");
+    // https://developer.wordpress.org/reference/functions/do_shortcode/
+    do_shortcode($requestDb);
 
 }
 else

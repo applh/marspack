@@ -1,7 +1,7 @@
 <?php 
-    if (!function_exists('do_action')) exit;
+if (!function_exists('do_action')) exit;
     
-    $txtIntro =
+$txtIntro =
 <<<CODEHTML
 Welcome on <strong>MarsPack</strong>!
 
