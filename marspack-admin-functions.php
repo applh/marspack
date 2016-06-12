@@ -166,6 +166,34 @@ CODESQL;
 
         if ($action == "insert")
         {
+            
+            if ($content != "")
+            {
+                // COMPLETE THE SHORTCODE WITH TABLE NAME
+                $content = str_replace("[col ", '[col table="' . $name . '" ', $content);
+                
+                // PROCESS THE COLUMNS
+                add_shortcode("col", "marspack_shortcode_col");
+                $listColVal = do_shortcode($content);
+            }
+
+            // REMOVE EXTRA ,
+            $listColVal = trim(",", $listColVal);
+            
+            $requestSQL = 
+<<<CODESQL
+
+INSERT INTO  `$name`
+SET
+$listColVal
+CODESQL;
+
+            // EXECUTE THE REQUEST SQL
+            // https://codex.wordpress.org/Class_Reference/wpdb
+            global $wpdb;
+            $wpdb->query($requestSQL);
+            
+            setVar("createDbFeedback", $requestSQL);
         }
 
 
