@@ -9,6 +9,7 @@ function marspack_shortcode ($tabAttribute, $content = "")
         "menu"      => "",
         "button"    => "",
         "action"    => "",
+        "table"    => "",
         ], $tabAttribute);
         
     // CREATE LOCAL VARIABLES 
@@ -63,6 +64,12 @@ CODEHTML;
         return $menuHtml;
     }
 
+    if (!empty($table))
+    {
+        // DEBUG
+        return marspack_table_read($table);
+    }
+    
     if (!empty($date))
     {
         // DEBUG
@@ -143,4 +150,18 @@ function echoVar ($varName, $translate=false)
 function setVar ($varName, $varVal)
 {
     $GLOBALS["$varName"] = $varVal;
+}
+
+// READ THE DB TABLE
+function marspack_table_read ($table)
+{
+    $requestSQL = 
+<<<CODESQL
+SELECT * FROM `$table`
+;
+CODESQL;
+    
+    global $wpdb;
+    $tabResult = $wpdb->get_results($requestSQL);
+    
 }
