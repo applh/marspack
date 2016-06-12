@@ -13,8 +13,13 @@ function marspack_shortcode_table ($tabAttribute, $content = "")
         $requestSQL = 
 <<<CODESQL
 
-CREATE TABLE `$name` IF NOT EXISTS;
+CREATE TABLE IF NOT EXISTS `$name`;
 
 CODESQL;
+
+        // EXECUTE THE REQUEST SQL
+        // https://codex.wordpress.org/Class_Reference/wpdb
+        global $wpdb;
+        $wpdb->query($requestSQL);
     }
 }
