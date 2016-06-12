@@ -103,12 +103,16 @@ function marspack_shortcode_table ($tabAttribute, $content = "")
 {
     $tabAttribute = shortcode_atts([
         "name"    => "",
+        "action"  => "",
         ], $tabAttribute);
     extract($tabAttribute); 
     
     if ($name != "")
     {
-        $requestSQL = 
+        
+        if ($action == "create")
+        {
+            $requestSQL = 
 <<<CODESQL
 
 CREATE TABLE IF NOT EXISTS `$name`
@@ -124,54 +128,51 @@ AUTO_INCREMENT=1
 
 CODESQL;
 
-        // EXECUTE THE REQUEST SQL
-        // https://codex.wordpress.org/Class_Reference/wpdb
-        global $wpdb;
-        $wpdb->query($requestSQL);
-        
-        if ($content != "")
-        {
-            // COMPLETE THE SHORTCODE WITH TABLE NAME
-            $content = str_replace("[col ", '[col table="' . $name . '" ', $content);
+            // EXECUTE THE REQUEST SQL
+            // https://codex.wordpress.org/Class_Reference/wpdb
+            global $wpdb;
+            $wpdb->query($requestSQL);
             
-            // PROCESS THE COLUMNS
-            add_shortcode("col", "marspack_shortcode_col");
-            do_shortcode($content);
+            if ($content != "")
+            {
+                // COMPLETE THE SHORTCODE WITH TABLE NAME
+                $content = str_replace("[col ", '[col table="' . $name . '" ', $content);
+                
+                // PROCESS THE COLUMNS
+                add_shortcode("col", "marspack_shortcode_col");
+                do_shortcode($content);
+            }
+            
+            setVar("createDbFeedback", $requestSQL);
+            
         }
         
-        setVar("createDbFeedback", $requestSQL);
-    }
-    else
-    {
-        setVar("createDbFeedback", "missing name");
-    }
-}
-
-function marspack_shortcode_drop ($tabAttribute, $content = "")
-{
-    $tabAttribute = shortcode_atts([
-        "name"    => "",
-        ], $tabAttribute);
-    extract($tabAttribute);    
-    if ($name != "")
-    {
-        $requestSQL = 
+        if ($action == "drop")
+        {
+            $requestSQL = 
 <<<CODESQL
 
 DROP TABLE `$name`;
 
 CODESQL;
 
-        // EXECUTE THE REQUEST SQL
-        // https://codex.wordpress.org/Class_Reference/wpdb
-        global $wpdb;
-        $wpdb->query($requestSQL);
-        
-        setVar("createDbFeedback", $requestSQL);
+            // EXECUTE THE REQUEST SQL
+            // https://codex.wordpress.org/Class_Reference/wpdb
+            global $wpdb;
+            $wpdb->query($requestSQL);
+            
+            setVar("createDbFeedback", $requestSQL);
+        }
+
+        if ($action == "insert")
+        {
+        }
+
+
     }
     else
     {
         setVar("createDbFeedback", "missing name");
-
     }
 }
+
