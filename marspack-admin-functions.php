@@ -5,13 +5,15 @@ if (!function_exists('do_action')) exit;
 function marspack_shortcode_col ($tabAttribute, $content = "")
 {
     $tabAttribute = shortcode_atts([
+        "table"   => "",
         "name"    => "",
         "type"    => "text",
+        "comment" => "",
         ], $tabAttribute);
         
     extract($tabAttribute);
     
-    if ($name != "")
+    if ( ($table != "") && ($name != ""))
     {
         switch ($type)
         {
@@ -29,7 +31,10 @@ function marspack_shortcode_col ($tabAttribute, $content = "")
         $requestSQL = 
 <<<CODESQL
 
-ALTER TABLE  `hello2` ADD  `$name` $colType NOT NULL ;
+ALTER TABLE `$table` 
+ADD  `$name` $colType 
+NOT NULL 
+COMMENT '$comment';
 
 CODESQL;
         
@@ -67,6 +72,9 @@ CODESQL;
         
         if ($content != "")
         {
+            // COMPLETE THE SHORTCODE WITH TABLE NAME
+            str_replace("[col ", '[col table="' . $name . '" ', $content);
+            
             // PROCESS THE COLUMNS
             add_shortcode("col", "marspack_shortcode_col");
             do_shortcode($content);
