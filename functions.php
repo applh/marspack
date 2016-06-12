@@ -155,6 +155,8 @@ function setVar ($varName, $varVal)
 // READ THE DB TABLE
 function marspack_table_read ($table, $idCol="id")
 {
+    $result = "";
+    
     $requestSQL = 
 <<<CODESQL
 SELECT * FROM `$table`
@@ -173,15 +175,17 @@ CODESQL;
             $idLine = $tabLine["$idCol"];
             $lineClass = "$table $table-$idLine";
         }
-        echo '<ul class="' . $lineClass . '">';
+        $result .= '<ul class="' . $lineClass . '">';
         foreach($tabLine as $col => $val)
         {
-            echo 
+             $result .= 
 <<<CODEHTML
 <li class="$col">$val</li>
 CODEHTML;
 
         }
-        echo "</ul>";
+         $result .= "</ul>";
     }
+    
+    return $result;
 }

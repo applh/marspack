@@ -72,7 +72,7 @@ jQuery(function(){
     <script type="text/javascript">
 /* global jQuery */
 jQuery(function(){
-    jQuery(".marsScreen").fadeOut();
+    jQuery(".marsScreen").hide();
     jQuery("div.box").hide();
     
     jQuery(".database .actStart").on("click", function(){
