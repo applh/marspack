@@ -173,12 +173,12 @@ CODESQL;
                 $content = str_replace("[col ", '[col table="' . $name . '" ', $content);
                 
                 // PROCESS THE COLUMNS
-                add_shortcode("col", "marspack_shortcode_col");
+                add_shortcode("col", "marspack_shortcode_col_insert");
                 $listColVal = do_shortcode($content);
             }
 
             // REMOVE EXTRA ,
-            $listColVal = trim(",", $listColVal);
+            $listColVal = trim($listColVal, ",");
             
             $requestSQL = 
 <<<CODESQL
@@ -193,6 +193,7 @@ CODESQL;
             global $wpdb;
             $wpdb->query($requestSQL);
             
+            echo $requestSQL;
             setVar("createDbFeedback", $requestSQL);
         }
 
@@ -202,5 +203,35 @@ CODESQL;
     {
         setVar("createDbFeedback", "missing name");
     }
+    
+    return "";
 }
 
+function marspack_shortcode_col_insert ($tabAttribute, $content = "")
+{
+    $result = "";
+    
+    $tabAttribute = shortcode_atts([
+        "table"   => "",
+        "name"    => "",
+        "type"    => "text",
+        "comment" => "",
+        "action"  => "",
+        "after"   => "",
+        ], $tabAttribute);
+        
+    extract($tabAttribute);
+    
+    if ($name != "")
+    {
+       $result = 
+<<<CODESQL
+
+`$name`  = '$content',
+
+CODESQL;
+
+    }
+    
+    return $result;
+}
