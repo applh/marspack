@@ -9,44 +9,62 @@ function marspack_shortcode_col ($tabAttribute, $content = "")
         "name"    => "",
         "type"    => "text",
         "comment" => "",
+        "action"  => "",
         ], $tabAttribute);
         
     extract($tabAttribute);
     
-    print_r($tabAttribute);
-    
     if ( ($table != "") && ($name != ""))
     {
-        switch ($type)
+        if ($action == "drop")
         {
-            case "int":
-            case "number":
-                $colType = "INT";
-                break;
-            case "decimal":
-                $colType = "DECIMAL(12,2)";
-                break;
-            case "date":
-                $colType = "DATETIME";
-                break;
-            default:
-                $colType = "TEXT";
-                break;
-        }
-        // TODO: IMPROVE
-        $comment = $type;
-        
-        // ALTER TABLE  `hello2` ADD  `email` TEXT NOT NULL ;
-        $requestSQL = 
+            $requestSQL = 
 <<<CODESQL
 
 ALTER TABLE `$table` 
-ADD  `$name` $colType 
+DROP COLUMN  `$name`
+;
+
+CODESQL;
+            
+        }
+        else
+        {
+            switch ($type)
+            {
+                case "int":
+                case "number":
+                case "boolean":
+                    $colType = "INT";
+                    break;
+                case "decimal":
+                    $colType = "DECIMAL(12,2)";
+                    break;
+                case "date":
+                    $colType = "DATETIME";
+                    break;
+                default:
+                    $colType = "TEXT";
+                    break;
+            }
+            // TODO: IMPROVE
+            $comment = $type;
+            
+            // ALTER TABLE  `hello2` ADD  `email` TEXT NOT NULL ;
+            $requestSQL = 
+<<<CODESQL
+
+ALTER TABLE `$table` 
+MODIFY  `$name` $colType 
 NOT NULL 
-COMMENT '$comment';
+COMMENT '$comment'
+;
 
 CODESQL;
 
+            
+        }
+        
         // EXECUTE THE REQUEST SQL
         // https://codex.wordpress.org/Class_Reference/wpdb
         global $wpdb;
@@ -75,7 +93,8 @@ CREATE TABLE IF NOT EXISTS `$name`
 ENGINE=InnoDB 
 DEFAULT CHARSET=utf8mb4 
 COLLATE=utf8mb4_unicode_ci 
-AUTO_INCREMENT=1 ;
+AUTO_INCREMENT=1 
+;
 
 CODESQL;
 
