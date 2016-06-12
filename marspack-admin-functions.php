@@ -10,6 +10,7 @@ function marspack_shortcode_col ($tabAttribute, $content = "")
         "type"    => "text",
         "comment" => "",
         "action"  => "",
+        "after"  => "",
         ], $tabAttribute);
         
     extract($tabAttribute);
@@ -47,6 +48,12 @@ CODESQL;
                     $colType = "TEXT";
                     break;
             }
+            
+            $afterCol = "";
+            if ($after != "")
+            {
+                $afterCol = "AFTER `$after`";
+            }
             // TODO: IMPROVE
             $comment = $type;
             
@@ -56,7 +63,8 @@ CODESQL;
 
 ALTER TABLE `$table` 
 MODIFY  `$name` $colType 
-NOT NULL 
+NOT NULL
+$afterCol
 COMMENT '$comment'
 ;
 

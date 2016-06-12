@@ -27,7 +27,7 @@ if ($idForm == "instructions")
     <pre><?php _e($txtIntro, 'marspack'); ?></pre>
 </section>
 <section class="instructions">
-    <h3><?php _e('Enter your instructions', 'marspack'); ?></h3>
+    <h3><?php _e('Notes', 'marspack'); ?></h3>
     <div class="panel">
 <form method="POST">
     <textarea name="instructions" cols="80" rows="16" required><?php echo $marspackOption; ?></textarea>
