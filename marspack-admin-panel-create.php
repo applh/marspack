@@ -9,7 +9,9 @@ if (!is_object($wpdb)) exit;
 <div>
     <form>
         <input type="text" name="tableName" placeholder="TABLE NAME" required/>
+        <br>
         <textarea name="commands" rows="10" cols="80"></textarea>
+        <br>
         <button>CREATE NEW TABLE</button>    
     </form>
 </div>
