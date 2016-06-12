@@ -13,12 +13,18 @@ function marspack_shortcode_col ($tabAttribute, $content = "")
         
     extract($tabAttribute);
     
+    print_r($tabAttribute);
+    
     if ( ($table != "") && ($name != ""))
     {
         switch ($type)
         {
             case "int":
+            case "number":
                 $colType = "INT";
+                break;
+            case "decimal":
+                $colType = "DECIMAL(12,2)";
                 break;
             case "date":
                 $colType = "DATETIME";
@@ -27,6 +33,9 @@ function marspack_shortcode_col ($tabAttribute, $content = "")
                 $colType = "TEXT";
                 break;
         }
+        // TODO: IMPROVE
+        $comment = $type;
+        
         // ALTER TABLE  `hello2` ADD  `email` TEXT NOT NULL ;
         $requestSQL = 
 <<<CODESQL
@@ -37,6 +46,11 @@ NOT NULL
 COMMENT '$comment';
 
 CODESQL;
+
+        // EXECUTE THE REQUEST SQL
+        // https://codex.wordpress.org/Class_Reference/wpdb
+        global $wpdb;
+        $wpdb->query($requestSQL);
         
     }
 }
@@ -73,7 +87,7 @@ CODESQL;
         if ($content != "")
         {
             // COMPLETE THE SHORTCODE WITH TABLE NAME
-            str_replace("[col ", '[col table="' . $name . '" ', $content);
+            $content = str_replace("[col ", '[col table="' . $name . '" ', $content);
             
             // PROCESS THE COLUMNS
             add_shortcode("col", "marspack_shortcode_col");
