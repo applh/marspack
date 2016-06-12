@@ -158,6 +158,7 @@ function marspack_table_read ($table)
     $requestSQL = 
 <<<CODESQL
 SELECT * FROM `$table`
+LIMIT 0, 100
 ;
 CODESQL;
     
