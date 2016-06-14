@@ -13,11 +13,26 @@ function marspack_shortcode ($tabAttribute, $content = "")
         "colSort"       => "id",
         "indexStart"    => "0",
         "nbLine"        => "100",
+        "form"          => "",
         ], $tabAttribute);
         
     // CREATE LOCAL VARIABLES 
     extract($tabAttribute);
     
+    // WARNING: PRIORITY BETWEEN SOME ATTRIBUTES
+
+    // WARNING: MUST BE INSIDE THE LOOP
+    if (!empty($form))
+    {
+        $template = "";
+        if (!empty($custom))
+        {
+            $template = post_custom($custom);
+        }
+        return marspack_table_form($form, $template);
+    }
+    
+    // WARNING: MUST BE INSIDE THE LOOP
     if (!empty($table))
     {
         $template = "";
@@ -208,6 +223,15 @@ CODEHTML;
             $result .= str_replace($tabToken, array_values($tabLine), $template);
         }
     }
+    
+    return $result;
+}
+
+function marspack_table_form ($form, $template)
+{
+    $result = "";
+    
+    $result = $template;
     
     return $result;
 }
