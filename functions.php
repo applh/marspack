@@ -156,15 +156,15 @@ function setVar ($varName, $varVal)
 }
 
 // READ THE DB TABLE
-function marspack_table_read ($table, $idCol="id", $indexStart=0, $nbLine=100)
+function marspack_table_read ($table, $colSort="id", $indexStart=0, $nbLine=100)
 {
     $result = "";
     
     $requestSQL = 
 <<<CODESQL
 SELECT * FROM `$table`
+ORDER BY `$colSort` DESC
 LIMIT $indexStart, $nbLine
-ORDR BY `$idCol` DESC
 ;
 CODESQL;
     
