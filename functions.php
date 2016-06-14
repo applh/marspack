@@ -238,9 +238,19 @@ function marspack_table_form ($table, $form, $template)
     $idForm = getInput("idForm");
     if ($idForm == "$form")
     {
+        $tabCol = [];
+        foreach($_REQUEST as $inputName => $inputval)
+        {
+            if (":" == $inputName[0])
+            {
+                $inputName = substr($inputName, 1);
+                $tabCol[$inputName] = $inputval;
+            }
+        }
         // WARNING: SECURITY PROBLEMS
-        $colNameList = implode("` , `", array_keys($_REQUEST));
-        $colValList  = implode("' , '", array_values($_REQUEST));
+        $colNameList = implode("` , `", array_keys($tabCol));
+
+        $colValList  = implode("' , '", array_values($tabCol));
         $requestSQL =
 <<<CODESQL
 
@@ -252,7 +262,7 @@ VALUES
 CODESQL;
 
         global $wpdb;
-        $wpdb->insert($table, $_REQUEST);
+        $wpdb->insert($table, $tabCol);
         
 
     }
