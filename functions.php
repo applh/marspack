@@ -18,6 +18,16 @@ function marspack_shortcode ($tabAttribute, $content = "")
     // CREATE LOCAL VARIABLES 
     extract($tabAttribute);
     
+    if (!empty($table))
+    {
+        $template = "";
+        if (!empty($custom))
+        {
+            $template = post_custom($custom);
+        }
+        return marspack_table_read($table, $colSort, $indexStart, $nbLine, $template);
+    }
+
     if (!empty($custom))
     {
         return post_custom($custom);
@@ -67,11 +77,6 @@ CODEHTML;
         return $menuHtml;
     }
 
-    if (!empty($table))
-    {
-        // DEBUG
-        return marspack_table_read($table, $colSort, $indexStart, $nbLine);
-    }
     
     if (!empty($date))
     {
@@ -156,7 +161,7 @@ function setVar ($varName, $varVal)
 }
 
 // READ THE DB TABLE
-function marspack_table_read ($table, $colSort="id", $indexStart=0, $nbLine=100)
+function marspack_table_read ($table, $colSort="id", $indexStart=0, $nbLine=100, $template="")
 {
     $result = "";
     
@@ -174,21 +179,29 @@ CODESQL;
     {
         // id
         $lineClass = "$table";
-        if (isset($tabLine["$idCol"]))
+        if (isset($tabLine["$colSort"]))
         {
-            $idLine = $tabLine["$idCol"];
+            $idLine = $tabLine["$colSort"];
             $lineClass = "$table $table-$idLine";
         }
-        $result .= '<ul class="' . $lineClass . '">';
-        foreach($tabLine as $col => $val)
+        
+        if ($template == "")
         {
-             $result .= 
+            $result .= '<ul class="' . $lineClass . '">';
+            foreach($tabLine as $col => $val)
+            {
+                 $result .= 
 <<<CODEHTML
 <li class="$col">$val</li>
 CODEHTML;
 
+            }
+            $result .= "</ul>";
         }
-         $result .= "</ul>";
+        else
+        {
+            
+        }
     }
     
     return $result;
