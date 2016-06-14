@@ -2,10 +2,33 @@
 
 Marseille WordPress Meetup Plugin Pack
 
+Some useful shortcodes...
+
+## Warning: Don't use with multisite WP
+
+
 # Usage (Post Content)
 
 ```
+    SHORTCODE TO DISPLAY A CUSTOM FIELD:
+
+    [pack custom="myKey"]
+
+    SHORTCODE TO DISPLAY THE LINES FROM A TABLE:
+    
+    [pack table="hello2" custom="hello2"]
+
+    (THE LINE HTML CODE IS IN A CUSTOM FIELD)
+
     [pack table="hello2"]
+    
+    SHORTCODE TO CREATE A FORM:
+
+    [pack table="hello2" form="hello2" custom="form"]
+
+    (THE FORM HTML CODE IS IN A CUSTOM FIELD)
+    
+
 ```
 
 # Usage (Admin) 
@@ -20,6 +43,7 @@ Marseille WordPress Meetup Plugin Pack
     [col name="email3" type="email"]
     [col name="coucou" type="email3"]
     [/table]
+
     
     SHORTCODE TO INSERT A NEW LINE:
 
@@ -30,7 +54,7 @@ Marseille WordPress Meetup Plugin Pack
     [col name="coucou" ]zeza[/col]
     [/table]
 
-    SHORTCODE TO INSERT A NEW LINE:
+    SHORTCODE TO DROP A TABLE:
 
     [table name="hello2" action="drop"]
     [/table]
