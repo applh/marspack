@@ -3,13 +3,16 @@
 function marspack_shortcode ($tabAttribute, $content = "")
 {
     $tabAttribute = shortcode_atts([
-        "custom"    => "",
-        "custom1"   => "",
-        "date"      => "",
-        "menu"      => "",
-        "button"    => "",
-        "action"    => "",
-        "table"    => "",
+        "custom"        => "",
+        "custom1"       => "",
+        "date"          => "",
+        "menu"          => "",
+        "button"        => "",
+        "action"        => "",
+        "table"         => "",
+        "colSort"       => "id",
+        "indexStart"    => "0",
+        "nbLine"        => "100",
         ], $tabAttribute);
         
     // CREATE LOCAL VARIABLES 
@@ -67,7 +70,7 @@ CODEHTML;
     if (!empty($table))
     {
         // DEBUG
-        return marspack_table_read($table);
+        return marspack_table_read($table, $colSort, $indexStart, $nbLine);
     }
     
     if (!empty($date))
@@ -153,14 +156,15 @@ function setVar ($varName, $varVal)
 }
 
 // READ THE DB TABLE
-function marspack_table_read ($table, $idCol="id")
+function marspack_table_read ($table, $idCol="id", $indexStart=0, $nbLine=100)
 {
     $result = "";
     
     $requestSQL = 
 <<<CODESQL
 SELECT * FROM `$table`
-LIMIT 0, 100
+LIMIT $indexStart, $nbLine
+ORDR BY `$idCol` DESC
 ;
 CODESQL;
     
