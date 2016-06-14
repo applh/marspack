@@ -239,16 +239,21 @@ function marspack_table_form ($table, $form, $template)
     if ($idForm == "$form")
     {
         // WARNING: SECURITY PROBLEMS
-        
-        foreach($_REQUEST as $key => $value)
-        {
-            
-        }
-        
+        $colNameList = implode("` , `", array_keys($_REQUEST));
+        $colValList  = implode("' , '", array_values($_REQUEST));
         $requestSQL =
 <<<CODESQL
 
+INSERT INTO `$table`
+( `$colNameList` )
+VALUES
+( '$colValList' )
+
 CODESQL;
+
+        global $wpdb;
+        $wpdb->insert($table, $_REQUEST);
+        
 
     }
     
@@ -257,6 +262,7 @@ CODESQL;
 <<<CODEHTML
 <input type="hidden" name="idForm" value="$form">
     </form>
+    <!-- HELLO -->
 CODEHTML;
     // ADD idForm INPUT
     $result = str_replace("</form>", $formEnd, $template);
