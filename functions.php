@@ -200,7 +200,12 @@ CODEHTML;
         }
         else
         {
-            
+            $tabToken = [];
+            foreach($tabLine as $col => $val)
+            {
+                $tabToken[] = ":$col";
+            }
+            $result .= str_replace($tabToken, array_values($tabLine), $template);
         }
     }
     
