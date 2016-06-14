@@ -29,7 +29,10 @@ function marspack_shortcode ($tabAttribute, $content = "")
         {
             $template = post_custom($custom);
         }
-        return marspack_table_form($form, $template);
+        if (!empty($table))
+        {
+            return marspack_table_form($table, $form, $template);
+        }
     }
     
     // WARNING: MUST BE INSIDE THE LOOP
@@ -227,11 +230,36 @@ CODEHTML;
     return $result;
 }
 
-function marspack_table_form ($form, $template)
+function marspack_table_form ($table, $form, $template)
 {
     $result = "";
     
-    $result = $template;
+    // CONTROLLER
+    $idForm = getInput("idForm");
+    if ($idForm == "$form")
+    {
+        // WARNING: SECURITY PROBLEMS
+        
+        foreach($_REQUEST as $key => $value)
+        {
+            
+        }
+        
+        $requestSQL =
+<<<CODESQL
+
+CODESQL;
+
+    }
+    
+    // VIEW
+    $formEnd = 
+<<<CODEHTML
+<input type="hidden" name="idForm" value="$form">
+    </form>
+CODEHTML;
+    // ADD idForm INPUT
+    $result = str_replace("</form>", $formEnd, $template);
     
     return $result;
 }
