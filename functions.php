@@ -298,6 +298,7 @@ function mp_build_agenda ()
     $nbDaysMonth   = date("t");
     $day1          = date("w", strtotime("$curYear/$curMonth/01"));
     $timeStart     = strtotime("$curYear/$curMonth/01 -$day1 days");
+    $now           = time();
     
     $result .= '<div class="mp_agenda">';
     
@@ -305,11 +306,26 @@ function mp_build_agenda ()
     for($d=1; $d <= 7 * $nbWeek; $d++) 
     {
         $curTime = $d * 3600 * 24 + $timeStart;
-        $curDayMonth = date("d", $curTime);
-        $curDayWeek = date("w", $curTime);
+        $curDayMonth  = date("d", $curTime);
+        $curDayWeek   = date("w", $curTime);
+        
+        $dayClass="item";
+        if ($curTime < $now)
+        {
+            $dayClass="item past";
+        }
+        else
+        {
+            $loopMonth    = date("m", $curTime);
+            if ($loopMonth > $curMonth)
+            {
+                $dayClass="item nextM";
+            }
+            
+        }
         $result .= 
 <<<CODEHTML
-<span class="item d$curDayWeek">$curDayMonth</span>
+<span class="$dayClass d$curDayWeek">$curDayMonth</span>
 CODEHTML;
         
     }

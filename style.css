@@ -8,6 +8,14 @@
    font-family: monospace;
 }
 
+.mp_agenda .item.past {
+   background-color: #999999;
+}
+
+.mp_agenda .item.nextM {
+   background-color: #dddddd;
+}
+
 .mp_agenda .d0:after {
     content:"\a";
     white-space: pre;
