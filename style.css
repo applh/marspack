@@ -12,6 +12,9 @@
 .mp_agenda .item.past {
    background-color: #999999;
 }
+.mp_agenda .item.today {
+   background-color: #aaffaa;
+}
 
 .mp_agenda .item.nextM {
    background-color: #dddddd;

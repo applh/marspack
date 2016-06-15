@@ -326,6 +326,7 @@ function mp_build_agenda ($now)
 {
     $result = "";
     
+    $tomorrow = (1+$d) * 3600 * 24 + $now;
     $curYear       = date("Y", $now);
     $curMonth      = date("m", $now);
     $nbDaysMonth   = date("t", $now);
@@ -349,6 +350,10 @@ function mp_build_agenda ($now)
         }
         else
         {
+            if ($curTime < $tomorrow)
+            {
+                $dayClass="item today";
+            }
             $loopMonth    = date("m", $curTime);
             if ($loopMonth > $curMonth)
             {
