@@ -295,10 +295,14 @@ function mp_build_agenda ()
     
     $curMonth      = date("m");
     $nbDaysMonth   = date("t");
-    for($d=0; $d<$nbDaysMonth; $d++) 
+    
+    $result .= '<div class="agenda">';
+    for($d=1; $d <= $nbDaysMonth; $d++) 
     {
         $result .= "<div>$d</div>";
         
     }
+    $result .= '</div>';
+    
     return $result;
 }

@@ -15,6 +15,7 @@ class MarsPack
     function installShortcode ()
     {
         add_shortcode('pack', 'marspack_shortcode');
+        add_action('wp_head', 'mp_head');
     }
     
     function installAdmin ()
