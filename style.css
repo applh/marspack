@@ -1,0 +1,8 @@
+
+.mp_agenda {
+    display:flex;
+}
+
+.mp_agenda .item {
+   width:10%; 
+}

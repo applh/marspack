@@ -296,13 +296,23 @@ function mp_build_agenda ()
     $curMonth      = date("m");
     $nbDaysMonth   = date("t");
     
-    $result .= '<div class="agenda">';
+    $result .= '<div class="mp_agenda">';
     for($d=1; $d <= $nbDaysMonth; $d++) 
     {
-        $result .= "<div>$d</div>";
+        $result .= 
+<<<CODEHTML
+<div class="item">$d</div>
+CODEHTML;
         
     }
     $result .= '</div>';
     
     return $result;
+}
+
+function mp_head ()
+{
+    echo '<style type="text/css">';
+    require_once(__DIR__."/style.css");
+    echo "</style>";
 }
