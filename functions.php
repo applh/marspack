@@ -309,7 +309,7 @@ function mp_build_agenda ()
         $curDayWeek = date("w", $curTime);
         $result .= 
 <<<CODEHTML
-<div class="item d$curDayWeek">$curDayMonth</div>
+<span class="item d$curDayWeek">$curDayMonth</span>
 CODEHTML;
         
     }

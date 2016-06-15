@@ -1,12 +1,14 @@
 
 .mp_agenda {
-    display:flex;
+    display:inline;
 }
 
 .mp_agenda .item {
-   width:10%; 
+   padding:4px;
+   font-family: monospace;
 }
 
-.mp_agenda .d0::after {
-   content:"<br>";
+.mp_agenda .d0:after {
+    content:"\a";
+    white-space: pre;
 }
