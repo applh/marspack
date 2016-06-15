@@ -15,6 +15,7 @@ function marspack_shortcode ($tabAttribute, $content = "")
         "nbLine"        => "100",
         "form"          => "",
         "agenda"        => "",
+        "search"        => "",
         ], $tabAttribute);
         
     // CREATE LOCAL VARIABLES 
@@ -103,6 +104,35 @@ CODEHTML;
         $now = time();
         return mp_build_agenda($now);
     }
+
+    if (!empty($search))
+    {
+        // https://codex.wordpress.org/Class_Reference/WP_Query
+        $result = "";
+        $args = [
+            "post_type" => "page",
+            "meta_key"  => $search,
+            ];
+        // The Query
+        $query1 = new WP_Query( $args );
+        
+        // The Loop
+        while ( $query1->have_posts() ) {
+        	$query1->the_post();
+        	$result .= '<div>' . get_the_title() . '</div>';
+        }
+        
+        /* Restore original Post Data 
+         * NB: Because we are using new WP_Query we aren't stomping on the 
+         * original $wp_query and it does not need to be reset with 
+         * wp_reset_query(). We just need to set the post data back up with
+         * wp_reset_postdata().
+         */
+        wp_reset_postdata();
+        
+        return $result;
+    }
+
 
     if (!empty($date))
     {
