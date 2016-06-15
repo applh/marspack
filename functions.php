@@ -304,9 +304,12 @@ function mp_build_agenda ()
     $nbWeek = 5;
     for($d=1; $d <= 7 * $nbWeek; $d++) 
     {
+        $curTime = $d * 3600 * 24 + $timeStart;
+        $curDayMonth = date("d", $curTime);
+        $curDayWeek = date("w", $curTime);
         $result .= 
 <<<CODEHTML
-<div class="item">$d</div>
+<div class="item d$curDayWeek">$curDayMonth</div>
 CODEHTML;
         
     }

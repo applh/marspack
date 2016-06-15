@@ -6,3 +6,7 @@
 .mp_agenda .item {
    width:10%; 
 }
+
+.mp_agenda .d0::after {
+   content:"<br>";
+}
