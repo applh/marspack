@@ -293,11 +293,16 @@ function mp_build_agenda ()
 {
     $result = "";
     
+    $curYear       = date("Y");
     $curMonth      = date("m");
     $nbDaysMonth   = date("t");
+    $day1          = date("w", strtotime("$curYear/$curMonth/01"));
+    $timeStart     = strtotime("$curYear/$curMonth/01 -$day1 days");
     
     $result .= '<div class="mp_agenda">';
-    for($d=1; $d <= $nbDaysMonth; $d++) 
+    
+    $nbWeek = 5;
+    for($d=1; $d <= 7 * $nbWeek; $d++) 
     {
         $result .= 
 <<<CODEHTML
