@@ -14,6 +14,7 @@ function marspack_shortcode ($tabAttribute, $content = "")
         "indexStart"    => "0",
         "nbLine"        => "100",
         "form"          => "",
+        "agenda"        => "",
         ], $tabAttribute);
         
     // CREATE LOCAL VARIABLES 
@@ -96,11 +97,19 @@ CODEHTML;
     }
 
     
+    if (!empty($agenda))
+    {
+        // DEBUG
+        return mp_build_agenda();
+    }
+
     if (!empty($date))
     {
         // DEBUG
         return date($date);
     }
+    
+    
 }
 
 
@@ -277,5 +286,19 @@ CODEHTML;
     // ADD idForm INPUT
     $result = str_replace("</form>", $formEnd, $template);
     
+    return $result;
+}
+
+function mp_build_agenda ()
+{
+    $result = "";
+    
+    $curMonth      = date("m");
+    $nbDaysMonth   = date("t");
+    for($d=0; $d<$nbDaysMonth; $d++) 
+    {
+        $result .= "<div>$d</div>";
+        
+    }
     return $result;
 }
