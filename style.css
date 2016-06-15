@@ -6,6 +6,7 @@
 .mp_agenda .item {
    padding:4px;
    font-family: monospace;
+   cursor: pointer;
 }
 
 .mp_agenda .item.past {

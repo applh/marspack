@@ -99,8 +99,9 @@ CODEHTML;
     
     if (!empty($agenda))
     {
-        // DEBUG
-        return mp_build_agenda();
+        // BUILD THIS MONTH AGENDA
+        $now = time();
+        return mp_build_agenda($now);
     }
 
     if (!empty($date))
@@ -289,16 +290,16 @@ CODEHTML;
     return $result;
 }
 
-function mp_build_agenda ()
+function mp_build_agenda ($now)
 {
     $result = "";
     
-    $curYear       = date("Y");
-    $curMonth      = date("m");
-    $nbDaysMonth   = date("t");
+    $curYear       = date("Y", $now);
+    $curMonth      = date("m", $now);
+    $nbDaysMonth   = date("t", $now);
+    
     $day1          = date("w", strtotime("$curYear/$curMonth/01"));
     $timeStart     = strtotime("$curYear/$curMonth/01 -$day1 days");
-    $now           = time();
     
     $result .= '<div class="mp_agenda">';
     
