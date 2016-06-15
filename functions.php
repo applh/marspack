@@ -119,6 +119,8 @@ CODEHTML;
         // The Loop
         while ( $query1->have_posts() ) {
         	$query1->the_post();
+        	$result .= '<div>' . post_custom($search) . '</div>';
+        	$result .= '<div>' . get_the_permalink() . '</div>';
         	$result .= '<div>' . get_the_title() . '</div>';
         }
         
