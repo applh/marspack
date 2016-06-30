@@ -325,7 +325,8 @@ function marspack_table_form ($table, $form, $template)
                     if (":" == $inputName[0])
                     {
                         $inputName = substr($inputName, 1);
-                        $tabCol[$inputName] = $inputVal;
+                        // REMOVE HTML AND PHP TAGS
+                        $tabCol[$inputName] = trim(strip_tags($inputVal));
                     }
                 }
             }
@@ -365,7 +366,10 @@ CODESQL;
         $colName     = $objField->Field;
         $colType     = $objField->Type;
         $colComment  = $objField->Comment;
-        $tabInfo[":$colName"] = $colComment;
+        if ($colName != "id")
+        {
+            $tabInfo[":$colName"] = $colComment;
+        }
     }
     
     $formX = cryptTab($tabInfo);
