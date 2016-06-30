@@ -272,6 +272,14 @@ CODEHTML;
     return $result;
 }
 
+
+function cryptTab($tabInfo)
+{
+    $res = "";
+    
+    return $res;
+}
+
 function marspack_table_form ($table, $form, $template)
 {
     $result = "";
@@ -310,8 +318,11 @@ CODESQL;
     }
     
     // VIEW
+    $formX = "";
+    
     $formEnd = 
 <<<CODEHTML
+<input type="hidden" name="xForm" value="$formX">
 <input type="hidden" name="idForm" value="$form">
     </form>
     <!-- HELLO -->
