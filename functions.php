@@ -277,11 +277,11 @@ function cryptTab($tabInfo)
 {
     $jsonData = json_encode($tabInfo);
     
-    $methodCrypt = "aes256";
-    $passwordCrypt = md5(NONCE_KEY);
-    $ivCrypt = substr(md5($passwordCrypt), 0, 16);
+    $methodCrypt    = "aes256";
+    $passwordCrypt  = md5(NONCE_KEY);
+    $ivCrypt        = substr(md5($passwordCrypt), 0, 16);
     
-    $result = openssl_encrypt($jsonData, $methodCrypt, $passwordCrypt, 0, $ivCrypt);
+    $result         = openssl_encrypt($jsonData, $methodCrypt, $passwordCrypt, 0, $ivCrypt);
     return $result;
 }
 
@@ -289,11 +289,11 @@ function decryptTab ($txtCrypt)
 {
     $tabInfo = [];
     
-    $methodCrypt = "aes256";
-    $passwordCrypt = md5(NONCE_KEY);
-    $ivCrypt = substr(md5($passwordCrypt), 0, 16);
+    $methodCrypt    = "aes256";
+    $passwordCrypt  = md5(NONCE_KEY);
+    $ivCrypt        = substr(md5($passwordCrypt), 0, 16);
 
-    $jsonData = openssl_decrypt($txtCrypt, $methodCrypt, $passwordCrypt, 0, $ivCrypt);
+    $jsonData       = openssl_decrypt($txtCrypt, $methodCrypt, $passwordCrypt, 0, $ivCrypt);
     
     if ($jsonData !== FALSE)
     {
@@ -379,9 +379,9 @@ CODESQL;
         }
     }
     
-    $formX = cryptTab($tabInfo);
-    $time2 = microtime(true);   
-    $deltaTime = number_format(1000 * ($time2 - $time1), 2);
+    $formX         = cryptTab($tabInfo);
+    $time2         = microtime(true);   
+    $deltaTime     = number_format(1000 * ($time2 - $time1), 2);
     $formEnd = 
 <<<CODEHTML
 <input type="hidden" name="xxForm" value="$formX">
