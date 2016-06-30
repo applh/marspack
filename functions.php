@@ -285,14 +285,38 @@ function cryptTab($tabInfo)
     return $result;
 }
 
+function decryptTab ($txtCrypt)
+{
+    $tabInfo = [];
+    
+    $methodCrypt = "aes256";
+    $passwordCrypt = "un mot de passe compliqué";
+    $ivCrypt = substr(md5($passwordCrypt), 0, 16);
+
+    $jsonData = openssl_decrypt($txtCrypt, $methodCrypt, $passwordCrypt, 0, $ivCrypt);
+    
+    var_dump($jsonData);
+    if ($jsonData !== FALSE)
+    {
+        $tabInfo = json_decode($jsonData, true);
+    }
+    return $tabInfo;
+}
+
 function marspack_table_form ($table, $form, $template)
 {
     $result = "";
     
     // CONTROLLER
     $idForm = getInput("idForm");
+    
     if ($idForm == "$form")
     {
+        $xxForm     = getInput("xxForm");
+        $tabInfo0   = decryptTab($xxForm);
+        
+        var_dump($tabInfo0);
+        
         $tabCol = [];
         foreach($_REQUEST as $inputName => $inputval)
         {
@@ -328,13 +352,13 @@ CODESQL;
     
     $formEnd = 
 <<<CODEHTML
-<input type="hidden" name="xForm" value="$formX">
+<input type="hidden" name="xxForm" value="$formX">
 <input type="hidden" name="idForm" value="$form">
     </form>
     <!-- HELLO -->
 CODEHTML;
     // ADD idForm INPUT
-    $result = str_replace("</form>", $formEnd, "HELLO$template");
+    $result = str_replace("</form>", $formEnd, $template);
     
     return $result;
 }
