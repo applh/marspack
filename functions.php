@@ -304,6 +304,7 @@ function decryptTab ($txtCrypt)
 
 function marspack_table_form ($table, $form, $template)
 {
+    global $wpdb;
     $result = "";
     
     // CONTROLLER
@@ -345,7 +346,6 @@ VALUES
 
 CODESQL;
 
-                global $wpdb;
                 $wpdb->insert($table, $tabCol);
             }
             
@@ -359,6 +359,15 @@ CODESQL;
         "form"        => $form,
         "timestamp"   => time(),
     ];
+    $tabDesc = $wpdb->get_results( "SHOW FULL COLUMNS FROM `$table`");
+    foreach($tabDesc as $objField)
+    {
+        $colName     = $objField->Field;
+        $colType     = $objField->Type;
+        $colComment  = $objField->Comment;
+        $tabInfo[":$colName"] = $colComment;
+    }
+    
     $formX = cryptTab($tabInfo);
     
     $formEnd = 
