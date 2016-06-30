@@ -334,7 +334,7 @@ CODESQL;
     <!-- HELLO -->
 CODEHTML;
     // ADD idForm INPUT
-    $result = str_replace("</form>", $formEnd, $template);
+    $result = str_replace("</form>", $formEnd, "HELLO$template");
     
     return $result;
 }
