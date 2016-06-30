@@ -278,7 +278,7 @@ function cryptTab($tabInfo)
     $jsonData = json_encode($tabInfo);
     
     $methodCrypt    = "aes256";
-    $passwordCrypt  = md5(NONCE_KEY);
+    $passwordCrypt  = sha1(NONCE_KEY);
     $ivCrypt        = substr(md5($passwordCrypt), 0, 16);
     
     $result         = openssl_encrypt($jsonData, $methodCrypt, $passwordCrypt, 0, $ivCrypt);
@@ -290,7 +290,7 @@ function decryptTab ($txtCrypt)
     $tabInfo = [];
     
     $methodCrypt    = "aes256";
-    $passwordCrypt  = md5(NONCE_KEY);
+    $passwordCrypt  = sha1(NONCE_KEY);
     $ivCrypt        = substr(md5($passwordCrypt), 0, 16);
 
     $jsonData       = openssl_decrypt($txtCrypt, $methodCrypt, $passwordCrypt, 0, $ivCrypt);
@@ -327,6 +327,7 @@ function marspack_table_form ($table, $form, $template)
             {
                 if (array_key_exists($inputName, $tabInfo0))
                 {
+                    // INPUT NAME STARTING WITH : IS A COLUMN NAME
                     if (":" == $inputName[0])
                     {
                         $inputName = substr($inputName, 1);
@@ -354,10 +355,7 @@ CODESQL;
 
                 $wpdb->insert($table, $tabCol);
             }
-            
         }
-        
-
     }
     
     // VIEW
@@ -386,8 +384,8 @@ CODESQL;
 <<<CODEHTML
 <input type="hidden" name="xxForm" value="$formX">
 <input type="hidden" name="idForm" value="$form">
+<!--$deltaTime ms-->
     </form>
-    <!--$deltaTime ms-->
 CODEHTML;
     // ADD idForm INPUT
     $result = str_replace("</form>", $formEnd, $template);
