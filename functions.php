@@ -275,9 +275,14 @@ CODEHTML;
 
 function cryptTab($tabInfo)
 {
-    $res = "";
+    $jsonData = json_encode($tabInfo);
     
-    return $res;
+    $methodCrypt = "aes256";
+    $passwordCrypt = "un mot de passe compliqué";
+    $ivCrypt = substr(md5($passwordCrypt), 0, 16);
+    
+    $result = openssl_encrypt($jsonData, $methodCrypt, $passwordCrypt, 0, $ivCrypt);
+    return $result;
 }
 
 function marspack_table_form ($table, $form, $template)
@@ -318,7 +323,8 @@ CODESQL;
     }
     
     // VIEW
-    $formX = "";
+    $tabInfo = [];
+    $formX = cryptTab($tabInfo);
     
     $formEnd = 
 <<<CODEHTML
