@@ -306,7 +306,8 @@ function marspack_table_form ($table, $form, $template)
 {
     global $wpdb;
     $result = "";
-    
+ 
+    $time1 = microtime(true);   
     // CONTROLLER
     $idForm = getInput("idForm");
     
@@ -315,6 +316,8 @@ function marspack_table_form ($table, $form, $template)
         $xxForm     = getInput("xxForm");
         $tabInfo0   = decryptTab($xxForm);
         
+        // SECURITY AGAINST SPAM
+        $time0 = $tabInfo["timestamp"];
         if (!empty($tabInfo0))
         {
             $tabCol = [];
@@ -373,13 +376,14 @@ CODESQL;
     }
     
     $formX = cryptTab($tabInfo);
-    
+    $time2 = microtime(true);   
+    $deltaTime = number_format(1000 * ($time2 - $time1), 2);
     $formEnd = 
 <<<CODEHTML
 <input type="hidden" name="xxForm" value="$formX">
 <input type="hidden" name="idForm" value="$form">
     </form>
-    <!-- HELLO -->
+    <!--$deltaTime ms-->
 CODEHTML;
     // ADD idForm INPUT
     $result = str_replace("</form>", $formEnd, $template);
