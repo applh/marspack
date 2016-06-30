@@ -316,8 +316,10 @@ function marspack_table_form ($table, $form, $template)
         $xxForm     = getInput("xxForm");
         $tabInfo0   = decryptTab($xxForm);
         
-        // SECURITY AGAINST SPAM
-        $time0 = $tabInfo["timestamp"];
+        // TODO: SECURITY AGAINST SPAM
+        $time0      = $tabInfo["timestamp"];
+        $userAgent0 = $tabInfo["userAgent"];
+        
         if (!empty($tabInfo0))
         {
             $tabCol = [];
@@ -361,8 +363,10 @@ CODESQL;
     // VIEW
     $tabInfo = [
         "form"        => $form,
-        "timestamp"   => time(),
+        "timestamp"   => time(),                            // SECURITY
+        "userAgent"   => $_SERVER["HTTP_USER_AGENT"],       // SECURITY
     ];
+    
     $tabDesc = $wpdb->get_results( "SHOW FULL COLUMNS FROM `$table`");
     foreach($tabDesc as $objField)
     {
