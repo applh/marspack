@@ -278,7 +278,7 @@ function cryptTab($tabInfo)
     $jsonData = json_encode($tabInfo);
     
     $methodCrypt = "aes256";
-    $passwordCrypt = "un mot de passe compliqué";
+    $passwordCrypt = md5(NONCE_KEY);
     $ivCrypt = substr(md5($passwordCrypt), 0, 16);
     
     $result = openssl_encrypt($jsonData, $methodCrypt, $passwordCrypt, 0, $ivCrypt);
@@ -290,12 +290,11 @@ function decryptTab ($txtCrypt)
     $tabInfo = [];
     
     $methodCrypt = "aes256";
-    $passwordCrypt = "un mot de passe compliqué";
+    $passwordCrypt = md5(NONCE_KEY);
     $ivCrypt = substr(md5($passwordCrypt), 0, 16);
 
     $jsonData = openssl_decrypt($txtCrypt, $methodCrypt, $passwordCrypt, 0, $ivCrypt);
     
-    var_dump($jsonData);
     if ($jsonData !== FALSE)
     {
         $tabInfo = json_decode($jsonData, true);
@@ -315,22 +314,22 @@ function marspack_table_form ($table, $form, $template)
         $xxForm     = getInput("xxForm");
         $tabInfo0   = decryptTab($xxForm);
         
-        var_dump($tabInfo0);
-        
-        $tabCol = [];
-        foreach($_REQUEST as $inputName => $inputval)
+        if (!empty($tabInfo0))
         {
-            if (":" == $inputName[0])
+            $tabCol = [];
+            foreach($_REQUEST as $inputName => $inputval)
             {
-                $inputName = substr($inputName, 1);
-                $tabCol[$inputName] = $inputval;
+                if (":" == $inputName[0])
+                {
+                    $inputName = substr($inputName, 1);
+                    $tabCol[$inputName] = $inputval;
+                }
             }
-        }
-        // WARNING: SECURITY PROBLEMS
-        $colNameList = implode("` , `", array_keys($tabCol));
-
-        $colValList  = implode("' , '", array_values($tabCol));
-        $requestSQL =
+            // WARNING: SECURITY PROBLEMS
+            $colNameList = implode("` , `", array_keys($tabCol));
+    
+            $colValList  = implode("' , '", array_values($tabCol));
+            $requestSQL =
 <<<CODESQL
 
 INSERT INTO `$table`
@@ -340,14 +339,19 @@ VALUES
 
 CODESQL;
 
-        global $wpdb;
-        $wpdb->insert($table, $tabCol);
+            global $wpdb;
+            $wpdb->insert($table, $tabCol);
+            
+        }
         
 
     }
     
     // VIEW
-    $tabInfo = [];
+    $tabInfo = [
+        "form"        => $form,
+        "timestamp"   => time(),
+    ];
     $formX = cryptTab($tabInfo);
     
     $formEnd = 
